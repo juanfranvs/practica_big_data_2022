@@ -328,6 +328,25 @@ A partir de ahora vamos a generar contenedores para poder desplegar todos los se
 	sudo docker exec spark-worker spark-submit --master spark://5725f561d1dd:7077 --deploy-mode cluster --packages org.mongodb.spark:mongo-spark-			connector_2.12:3.0.1,org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 --class es.upm.dit.ging.predictor.MakePrediction 		
 	/home/practica_big_data_2019/flight_prediction/target/scala-2.12/flight_prediction_2.12-0.1.jar
 	
+### Dockerfile para la aplicación flask
+Generamos el Dockerfile que se puede ver a continuación y el cual hemos usado para el posterior despliegue de la aplicación web tras la creación del contenedor mediante el comando docker build.
+
+FROM python:3.7
+
+WORKDIR /usr/src/app
+
+ENV PROJECT_HOME=/usr/src/app
+
+COPY requirements.txt requirements.txt
+
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install -r requirements.txt
+
+
+COPY . .
+
+CMD [ "python3", "predict_flask.py" ]
+	
 ### Lanzamos el Predict Flask
 
 	sudo docker run -p 10.204.0.2:5000:5000 flask
