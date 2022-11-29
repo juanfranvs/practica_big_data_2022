@@ -331,21 +331,21 @@ A partir de ahora vamos a generar contenedores para poder desplegar todos los se
 ### Dockerfile para la aplicación flask
 Generamos el Dockerfile que se puede ver a continuación y el cual hemos usado para el posterior despliegue de la aplicación web tras la creación del contenedor mediante el comando docker build.
 
-FROM python:3.7
+	FROM python:3.7
 
-WORKDIR /usr/src/app
+	WORKDIR /usr/src/app
 
-ENV PROJECT_HOME=/usr/src/app
+	ENV PROJECT_HOME=/usr/src/app
 
-COPY requirements.txt requirements.txt
+	COPY requirements.txt requirements.txt
 
-RUN python3 -m pip install --upgrade pip
-RUN python3 -m pip install -r requirements.txt
+	RUN python3 -m pip install --upgrade pip
+	RUN python3 -m pip install -r requirements.txt
 
 
-COPY . .
+	COPY . .
 
-CMD [ "python3", "predict_flask.py" ]
+	CMD [ "python3", "predict_flask.py" ]
 	
 ### Lanzamos el Predict Flask
 
